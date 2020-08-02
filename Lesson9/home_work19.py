@@ -1,13 +1,13 @@
 def arithmetic(a, b, c):
     if c == "+":
-        print(a + b)
+        return a + b
     elif c == "-":
-        print(a - b)
+        return a - b
     elif c == "*":
-        print(a * b)
+        return a * b
     elif c == "/":
-        print(a / b)
+        return a / b
     else:
-        print("Unknown operation")
+        return "Unknown operation"
 
-arithmetic(10, 5, "/")
+print(arithmetic(10, 5, "+"))
