@@ -1,7 +1,7 @@
 def is_year_leap(year):
     if (year % 4 == 0) or (year % 100 == 0 and year % 400 == 0):
-        print("True")
+        return "True"
     else:
-        print("False")
+        return "False"
 
-is_year_leap(2013)
+print(is_year_leap(2013))
