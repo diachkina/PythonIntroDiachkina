@@ -18,3 +18,6 @@ print()
 for i in total_cols:
     print('{:<5}'.format(i), end='')
     
+
+    
+    
