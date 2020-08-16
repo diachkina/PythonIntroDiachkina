@@ -16,16 +16,15 @@ for i in range(rows):
     print(" ", total_rows)
 print()
 
-total_cols = []
-for column in range(len(matrix[0])):
-    t = 0
-    for row in matrix:
-        t += row[column]
-    total_cols.append(t)
-    # print('{:>3}'.format(list(total_cols)), end='')
-print(*total_cols, end='')
+total_cols = [0] * cols
+for row in range(len(matrix)):
+    for col in range(len(matrix[row])):
+        total_cols[col] += matrix[row][col]
+
+#print('{:>3}'.format(list(total_cols)), end='')
+print(total_cols, end='')
 
 # for line in rating:
 #     line = line.split(', ')[1: -2]
 #     for idx in range(len(line)):
-#         matrix[idx] += int(line[idx])
+#         matrix[idx] += int(line[idx]
