@@ -1,50 +1,49 @@
 from random import randint
 
-C = R = int(input("Enter the number more than 5: "))
+m = int(input('Please enter size matrix: '))
 
-matrix = [[randint(1, 50) for _ in range(C)] for _ in range(R)]
-print(matrix)
+lst = [[randint(10, 50) for _ in range(m)] for _ in range(m)]
 
-total_C = [0] * C
-for i in range(R):
-    # total_R = 0
-    for j in range(C):
-        # total_R += matrix[j][i]
-        total_C[j] += matrix[i][j]
-        print('{:<5}'.format(matrix[i][j]), end='')
-    # print(" ", total_R)
+
+def print_matrix(matrix):
+    tmp = [0] * len(matrix[0])
+    for i in range(len(matrix)):
+        for j in range(len(matrix[i])):
+            print('{:>4}'.format(matrix[i][j]), end='')
+            tmp[j] += matrix[i][j]
+        print()
     print()
-for i in total_C:
-    print('{:<5}'.format(i), end='')
 
-print()
-
-for j in range(len(matrix) - 1):
-    flag = True
-    for i in range(len(matrix) -1-j):
-        if sum(matrix[j])>sum(matrix[j+1]):
-            matrix[j], matrix[j+1] = matrix[j+1], matrix[j]
-            flag = False
-        if flag:
-            break
+    for i in range(len(tmp)):
+        print('{:>4}'.format(tmp[i]), end='')
     print()
-for i in range(C):
-    for j in range(R):
-        print('{:<5}'.format(matrix[i][j]), end='')
     print()
 
 
+def sort_matrix(matrix):
+    tmp = [0] * len(matrix[0])
+    for i in range(len(matrix)):
+        for j in range(len(matrix)):
+            tmp[j] += matrix[i][j]
+
+    for i in range(len(tmp) - 1):
+        for j in range(len(tmp) - 1 - i):
+            if tmp[j] > tmp[j+1]:
+                tmp[j], tmp[j+1] = tmp[j+1], tmp[j]
+                for c in range(len(matrix)):
+                    matrix[c][j], matrix[c][j + 1] = matrix[c][j + 1], matrix[c][j]
+
+    for j in range(len(matrix[0])):
+        for c in range(len(matrix) - 1):
+            for i in range(len(matrix) - 1 - c):
+                if j % 2 == 0:
+                    if matrix[i][j] < matrix[i+1][j]:
+                        matrix[i][j], matrix[i+1][j] = matrix[i+1][j], matrix[i][j]
+                else:
+                    if matrix[i][j] > matrix[i+1][j]:
+                        matrix[i][j], matrix[i+1][j] = matrix[i+1][j], matrix[i][j]
 
 
-# print()
-
-#
-# bubble_sort(matrix)
-# print(matrix)
-
-# for i in range(C):
-#     for j in range(R):
-#         print('{:<5}'.format(matrix[j][i]), end='')
-#     print()
-
-# print(matrix)
+print_matrix(lst)
+sort_matrix(lst)
+print_matrix(lst)
