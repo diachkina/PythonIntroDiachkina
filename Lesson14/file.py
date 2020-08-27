@@ -1,4 +1,3 @@
-from pprint import pprint as pp
 
 lst = [
     'Андрей Говорухин                              2   9   2   9   5   5   7   6  10   7   10  8',
@@ -12,60 +11,38 @@ lst = [
     'Пётр Николаев                                 10  2   8   8   7   1   6   9   4   7   10  9',
     'Полина Гусева                                 10  5   9   4   6   3   4   4   9   10  7   7',
     'Спиридон Тереньтьев                           9   5   1   2   5   2   10  2   7   2   4   7',
-    'Станислав Твердолoбов                         3   6   4   3   3   4   4   10  5   3   5   5'
+    'Станислав Твердолюбов                         3   6   4   3   3   4   4   10  5   3   5   5'
 ]
 
-# pp(lst)
-
 file = open('pupils_list.txt', 'w', encoding='utf-8')
+file_w = open('pupils_list_2.txt', 'w', encoding='utf-8')
 for line in lst:
     file.write(line)
     file.write('\n')
 
 lst = []
-# pp(lst)
 file = open('pupils_list.txt', encoding='utf-8')
-while True:
-    line = file.readline(46)
-    if line != '':
-        lst.append(line.strip('\n'))
-    else:
-        break
-file.close()
-print()
-pp(lst)
+lines = file.readlines()
+total_sum = 0
+total_cnt = 0
+for line in lines:
+    lst = line.strip('\n').split()
+    name = lst[0]
+    surname = lst[1]
+    suma = sum([int(s) for s in lst[2:]])
+    total_sum += suma
+    cnt = len(lst[2:])
+    total_cnt += cnt
+    file_w.write('{name:<32}{avr:>7}\n'.format(
+        name=lst[1] + ' ' + lst[0][0] + '.',
+        avr=round(suma/cnt, 2)))
 
-lst_name = lst[0:: 2]
-# print(lst_name)
-# lst_marks = lst[1:: 2]
-# # print(lst_marks)
+    if suma/cnt < 5:
+        print('{name:<32}{avr:>7}'.format(
+            name=lst[1] + ' ' + lst[0][0] + '.',
+            avr=round(suma/cnt, 2)))
 
-idx = 0
-marksint = []
-marks_mid = []
-for i in lst[1:: 2]:
-    marks = lst[1:: 2][idx].split()
-    idx += 1
-    marksint = [int(x) for x in marks]
-    marks_mid = round(sum(marksint) / len(marksint), 2)
-    print(lst_name, marks_mid)
-print(lst_name, marks_mid)
-name2=[]
-idx = -1
-for i in lst[0:: 2]:
-    name2 = (lst[0:: 2][idx].split()[::-1])
-    idx += 1
-    print(name2)
-rating = [name + ', ' + ', '.join([str(marks_mid)]) for name in name2]
-print(rating, 1)
-print()
-
-idx = -1
-for i in lst[0:: 2]:
-    surname = (lst[0:: 2][idx].split()[::-1])
-    idx += 1
-    print(surname[0], surname[1][0] + ".")
-#
+print('Средний балл по классу:', round(total_sum/total_cnt, 2))
 
 
 
